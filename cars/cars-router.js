@@ -14,4 +14,19 @@ router.get("/", async (req,res,next) => {
     }
 })
 
+router.post("/", async (req, res, next) => {
+    try{
+
+        const carsData = req.body
+		const [id] = await db("cars").insert(carsData)
+        const carList = await db("cars") 
+        
+		res.status(201).json(carList)
+
+    }
+    catch(err) {
+        next(err)
+    }
+})
+
 module.exports = router
